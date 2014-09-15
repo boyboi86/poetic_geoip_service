@@ -1,0 +1,25 @@
+{
+  "name": "poetic_geoip_service",
+  "version": "0.0.1",
+  "description": "Web service converting the ip to a location",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:poeticoding/poetic_geoip_service.git"
+  },
+  "keywords": [
+    "geoip",
+    "nodejs",
+    "mongodb",
+    "maxmind"
+  ],
+  "author": "Alvise Susmel (alvise@poeticoding.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poeticoding/poetic_geoip_service/issues"
+  },
+  "homepage": "https://github.com/poeticoding/poetic_geoip_service"
+}

@@ -1,7 +1,7 @@
-var newrelic = require('newrelic');
 var express = require('express');
 var mongodb = require('mongodb');
 var app = express();
+
 app.use(express.static(__dirname + '/public'));
 
 //ENABLE CORS

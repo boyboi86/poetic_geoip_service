@@ -2,6 +2,7 @@ var express = require('express');
 var mongodb = require('mongodb');
 
 var app = express();
+app.use(express.static(__dirname + '/public'));
 
 //ENABLE CORS
 app.all('*', function(req, res, next) {
@@ -13,27 +14,27 @@ app.all('*', function(req, res, next) {
 //LOCATE CODE HERE
 app.get('/locate', function(req, res) {
 	//getting the ip of the client from the request headers or remoteAddress
-	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	var ip = req.param("ip");
+	ip = ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-	var net1 = ip.split(".").slice(0,3).join("."); //aaa.bbb.ccc
-	var net2 = ip.split(".").slice(0,2).join("."); //aaa.bbb
-	var net3 = ip.split(".").slice(0,1).join("."); //aaa
-	var reg1 = new RegExp("^"+net1);
-	var reg2 = new RegExp("^"+net2);
-	var reg3 = new RegExp("^"+net3);
+	var net = ip.split(".").slice(0,3).join(".")+".0"; //aaa.bbb.ccc.0
 
 	mongodb.connect("mongodb://127.0.0.1:27017/poetic_geoips",function(err,db){
 		if(err) throw err;
 
 		var ips = db.collection("ips");
-		ips.findOne({$or: [{ip: reg3},{ip: reg2},{ip: reg1}]},function(err,result){
+
+		ips.findOne({$or: [{ip: net}]},function(err,result){
 			if(err) throw err;
 
 			if(result) {
-				var location = result.location;
-				res.end(JSON.stringify(location));				
+
+				res.end(JSON.stringify({ip: ip,location: result.location}));				
+
 			} else {
-				res.end(JSON.stringify({message: "no location found"}));
+
+				res.end(JSON.stringify({ip: ip}));
+
 			}
 
 			db.close();

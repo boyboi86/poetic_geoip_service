@@ -1,6 +1,6 @@
 var express = require('express');
 var mongodb = require('mongodb');
-
+var newrelic = require('newrelic');
 var app = express();
 app.use(express.static(__dirname + '/public'));
 

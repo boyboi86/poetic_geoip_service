@@ -1,5 +1,5 @@
 function GeoIP(forcedIP) {
-	var locateUrl = "http://localhost:4000/locate";
+	var locateUrl = "http://geoip.poeticoding.com/locate";
 
 	//locate function, success or fail callbacks will be triggered
 	//once the request to the server is finished
@@ -19,7 +19,7 @@ function GeoIP(forcedIP) {
     xhr.ontimeout = function () { 
     	if(failCallback) failCallback();
     }
-    
+
     xhr.send();
   }
 }

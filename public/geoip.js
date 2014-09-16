@@ -7,7 +7,7 @@ function GeoIP(forcedIP) {
 		var xhr = new XMLHttpRequest();
 		if(forcedIP) locateUrl += "?ip="+forcedIP;
 		xhr.open("GET", locateUrl, true);
-
+		xhr.timeout = 60000;
 		xhr.onload = function (e) {
   		if (xhr.readyState === 4) {
   			json = JSON.parse(xhr.responseText);
@@ -16,6 +16,10 @@ function GeoIP(forcedIP) {
     	  console.error(xhr.statusText);
     	}
     }
+    xhr.ontimeout = function () { 
+    	if(failCallback) failCallback();
+    }
+    
     xhr.send();
   }
 }

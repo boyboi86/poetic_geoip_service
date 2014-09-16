@@ -9,7 +9,7 @@
 	</body>
 
 	<script>
-		var geoip = new GeoIP();
+		var geoip = new GeoIP("217.196.248.113");
 		geoip.locate(function(ip,location){
 
 			var details = document.getElementById("details")
